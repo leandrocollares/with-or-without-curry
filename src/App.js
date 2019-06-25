@@ -1,9 +1,9 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <div>
         <h1>With or without Curry?</h1>
         <p>Intro goes here</p>
