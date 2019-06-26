@@ -1,10 +1,48 @@
 // variables
 
 $dark-grey: #333333;
+$medium-grey: #808080;
 
 .app {
   margin: 20px 0 0 20px;
   text-align: center;
   color: $dark-grey;
+}
+
+.chart {
+  text {
+    font-size: 11px;
+    color: $medium-grey;
+  }
+}
+
+.barChart {
+  margin: 0 auto;
+  width: 1300px; 
+}
+
+.xAxis {
+  path {
+    display: none;
+    color: $medium-grey;
+  }
+  .tick line {
+    stroke: transparent;
+  }
+}
+
+.yAxis {
+  path {
+    display: none;
+  }
+  .tick line {
+    color: $medium-grey;
+  }
+}
+
+.axisLabel {
+  fill: $medium-grey;
+  font-size: 11px;
+  text-anchor: start;
 }
 
