@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 import Axis from './Axis';
 import Bar from './Bar';
+import Legend from './Legend';
 
 const margin = {
   top: 10, right: 30, bottom: 90, left: 30,
@@ -11,6 +12,12 @@ const width = 1300 - margin.left - margin.right;
 const height = 280 - margin.top - margin.bottom;
 
 const colours = ['#006bb6', '#fdb927'];
+
+const legendScale = d3
+  .scaleOrdinal()
+  .domain(['win', 'loss'])
+  .range(colours);
+
 
 class BarChart extends Component {
   static propTypes = {
@@ -74,6 +81,13 @@ class BarChart extends Component {
               yTransform={0}
               scale={yScale}
               label="point difference"
+            />
+            <Legend
+              orientation="horizontal"
+              scale={legendScale}
+              shapeWidth={25}
+              legendXTransform={width / 2 - 25}
+              legendYTransform={height + 50}
             />
           </g>
         </svg>
