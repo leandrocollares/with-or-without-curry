@@ -2,6 +2,10 @@
 
 $dark-grey: #333333;
 $medium-grey: #808080;
+$light-grey: #ddd;
+$white-95-pct: rgba(255, 255, 255, 0.95);
+$warriors-blue: #006bb6;
+$warriors-yellow: #fdb927;
 
 .app {
   margin: 20px 0 0 20px;
@@ -19,6 +23,7 @@ $medium-grey: #808080;
 .barChart {
   margin: 0 auto;
   width: 1300px; 
+  position: relative;
 }
 
 .xAxis {
@@ -48,5 +53,35 @@ $medium-grey: #808080;
 
 .legend {
   fill: $medium-grey;
+}
+
+.tooltip {
+  background: $white-95-pct;
+  position: absolute;
+  top: -12px;
+  left: 0;
+  padding: 0.6em 0.6em;
+  border: 1px solid $light-grey;
+  pointer-events: none;
+  font-size: 12px;
+}
+
+.tooltipGame {
+  margin-bottom: 0.3em;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.rect:hover {
+  stroke: $dark-grey;
+  stroke-width: 2px;
+}
+
+.gameWon {
+  color: $warriors-blue;
+}
+
+.gameLost {
+  color: $warriors-yellow;
 }
 

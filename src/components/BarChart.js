@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 import Axis from './Axis';
 import Bar from './Bar';
 import Legend from './Legend';
+import Tooltip from './Tooltip';
 
 const margin = {
   top: 10, right: 30, bottom: 90, left: 30,
@@ -17,7 +18,6 @@ const legendScale = d3
   .scaleOrdinal()
   .domain(['win', 'loss'])
   .range(colours);
-
 
 class BarChart extends Component {
   static propTypes = {
@@ -33,8 +33,20 @@ class BarChart extends Component {
     })),
   };
 
-  render() {
-    const { data } = this.props;
+  state = {
+    hovered: null,
+    xScale: null,
+    yScale: null,
+  };
+
+  onBarHover = bar => () => {
+    this.setState({ hovered: bar });
+  };
+
+  static getDerivedStateFromProps(nextProps) {
+    const { data } = nextProps;
+
+    if (!data.length) return {};
 
     const xScale = d3
       .scaleBand()
@@ -47,6 +59,15 @@ class BarChart extends Component {
       .domain([0, d3.max(data, d => d.difference)])
       .rangeRound([height, 0])
       .nice();
+
+    return { xScale, yScale };
+  }
+
+  render() {
+    const { xScale, yScale, hovered } = this.state;
+    const { data } = this.props;
+
+    if (!xScale || !yScale) return null;
 
     return (
       <div className="barChart">
@@ -64,6 +85,8 @@ class BarChart extends Component {
                 width={xScale.bandwidth()}
                 height={height - yScale(d.difference)}
                 fill={d.win ? colours[0] : colours[1]}
+                onMouseEnter={this.onBarHover(d)}
+                onMouseLeave={this.onBarHover(null)}
               />
             ))}
             <Axis
@@ -91,6 +114,15 @@ class BarChart extends Component {
             />
           </g>
         </svg>
+        {hovered ? (
+          <Tooltip
+            hovered={hovered}
+            xScale={xScale}
+            yScale={yScale}
+            marginLeft={margin.left}
+            marginTop={margin.top}
+          />
+        ) : null}
       </div>
     );
   }

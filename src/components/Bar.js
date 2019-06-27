@@ -7,6 +7,7 @@ const Bar = (props) => {
   } = props;
   return (
     <rect
+      className="rect"
       x={x}
       y={y}
       width={width}
