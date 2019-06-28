@@ -85,3 +85,21 @@ $warriors-yellow: #fdb927;
   color: $warriors-yellow;
 }
 
+.histogramXAxis {
+  path {
+    display: none;
+  }
+  .tick line {
+    stroke: $medium-grey;
+  }
+}
+
+.histogramYAxis {
+  path {
+    display: none;
+  }
+  .tick line {
+    color: $medium-grey;
+  }
+}
+

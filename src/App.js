@@ -1,5 +1,6 @@
 import React from 'react';
 import BarChart from './components/BarChart';
+import Histogram from './components/Histogram';
 import './App.scss';
 import data from './data';
 
@@ -11,9 +12,7 @@ function App() {
         <p>Intro goes here</p>
       </div>
       <BarChart data={data} />
-      <div>
-        <p>Histogram goes here</p>
-      </div>
+      <Histogram data={data} />
     </div>
   );
 }
