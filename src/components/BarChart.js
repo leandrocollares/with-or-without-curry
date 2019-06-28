@@ -21,7 +21,7 @@ const legendScale = d3
 
 class BarChart extends Component {
   static propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
+    filtered: PropTypes.arrayOf(PropTypes.shape({
       gameNumber: PropTypes.number,
       date: PropTypes.string,
       venue: PropTypes.string,
@@ -65,7 +65,7 @@ class BarChart extends Component {
 
   render() {
     const { xScale, yScale, hovered } = this.state;
-    const { data } = this.props;
+    const { filtered } = this.props;
 
     if (!xScale || !yScale) return null;
 
@@ -77,7 +77,7 @@ class BarChart extends Component {
           height={height + margin.top + margin.bottom}
         >
           <g transform={`translate(${margin.left}, ${margin.top})`}>
-            {data.map(d => (
+            {filtered.map(d => (
               <Bar
                 key={d.gameNumber}
                 x={xScale(d.gameNumber)}
@@ -100,9 +100,9 @@ class BarChart extends Component {
             <Axis
               className="yAxis"
               orientation="Left"
+              scale={yScale}
               xTransform={0}
               yTransform={0}
-              scale={yScale}
               label="point difference"
             />
             <Legend

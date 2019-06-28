@@ -15,20 +15,19 @@ const numberOfThresholds = 9;
 
 class Histogram extends Component {
   static propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-      gameNumber: PropTypes.number,
-      date: PropTypes.string,
-      venue: PropTypes.string,
-      opponent: PropTypes.string,
-      score: PropTypes.string,
-      win: PropTypes.bool,
-      difference: PropTypes.number,
-      pointsMadeByCurry: PropTypes.number,
-    })),
+    updateFilter: PropTypes.func,
   };
 
-  render() {
-    const { data } = this.props;
+  state = {
+    bars: [],
+    xScale: null,
+    yScale: null,
+  }
+
+  brushRef = React.createRef();
+
+  static getDerivedStateFromProps(nextProps) {
+    const { data, filtered } = nextProps;
 
     const xScale = d3
       .scaleLinear()
@@ -42,7 +41,7 @@ class Histogram extends Component {
       .thresholds(xScale.ticks(numberOfThresholds))
       .value(d => d.pointsMadeByCurry);
 
-    const bins = binGenerator(data);
+    let bins = binGenerator(data);
 
     const yScale = d3
       .scaleLinear()
@@ -50,12 +49,43 @@ class Histogram extends Component {
       .range([height, 0])
       .nice();
 
+    bins = binGenerator(filtered);
+
     const bars = bins.map(d => ({
       x: xScale(d.x0),
       y: yScale(d.length),
       height: height - yScale(d.length),
       width: xScale(d.x1) - xScale(d.x0),
     }));
+
+    return { bars, xScale, yScale };
+  }
+
+  componentDidMount() {
+    this.brush = d3
+      .brushX()
+      .extent([[0, 0], [width, height]])
+      .on('end', this.brushEnd);
+
+    d3.select(this.brushRef.current).call(this.brush);
+  }
+
+  brushEnd = () => {
+    let bounds = null;
+
+    const { xScale } = this.state;
+
+    const { updateFilter } = this.props;
+
+    if (d3.event.selection) {
+      const [x1, x2] = d3.event.selection;
+      bounds = [xScale.invert(x1), xScale.invert(x2)];
+    }
+    updateFilter(bounds);
+  };
+
+  render() {
+    const { bars, xScale, yScale } = this.state;
 
     return (
       <div className="histogram">
@@ -91,6 +121,7 @@ class Histogram extends Component {
               yTransform={0}
               label="number of games"
             />
+            <g ref={this.brushRef} className="brush" />
           </g>
         </svg>
       </div>
