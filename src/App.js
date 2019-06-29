@@ -27,9 +27,28 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <div>
+        <div className="intro">
           <h1>With or without Curry?</h1>
-          <p>Intro goes here</p>
+          <p>
+            The bar chart displays the point difference in each Golden State
+            Warriors game of the 2018-19 regular season. Hover over bars for
+            further information. The histogram shows the number of games in
+            which Curry&#39;s performance was within each point range. Select
+            any point interval in the histogram to make the bar chart display
+            games in which the number of points made by Curry fell within
+            that interval.
+          </p>
+          <p>
+            Data source:
+            {' '}
+            <a
+              href="https://www.basketball-reference.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+            Basketball Reference
+            </a>
+          </p>
         </div>
         <BarChart data={data} {...this.state} />
         <Histogram data={data} {...this.state} updateFilter={this.updateFilter} />
