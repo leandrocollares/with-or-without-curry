@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/with-or-without-curry/static/css/main.6664e91b.chunk.css",
+    "main.js": "/with-or-without-curry/static/js/main.964b3b67.chunk.js",
+    "main.js.map": "/with-or-without-curry/static/js/main.964b3b67.chunk.js.map",
+    "runtime~main.js": "/with-or-without-curry/static/js/runtime~main.8442b8da.js",
+    "runtime~main.js.map": "/with-or-without-curry/static/js/runtime~main.8442b8da.js.map",
+    "static/js/2.f159276b.chunk.js": "/with-or-without-curry/static/js/2.f159276b.chunk.js",
+    "static/js/2.f159276b.chunk.js.map": "/with-or-without-curry/static/js/2.f159276b.chunk.js.map",
+    "index.html": "/with-or-without-curry/index.html",
+    "precache-manifest.2f1d0e8e744f7537e03931b4453b7b49.js": "/with-or-without-curry/precache-manifest.2f1d0e8e744f7537e03931b4453b7b49.js",
+    "service-worker.js": "/with-or-without-curry/service-worker.js",
+    "static/css/main.6664e91b.chunk.css.map": "/with-or-without-curry/static/css/main.6664e91b.chunk.css.map",
+    "static/media/App.scss": "/with-or-without-curry/static/media/lato-v15-latin-regular.d1d5e30a.ttf"
+  }
+}
