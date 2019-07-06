@@ -8,6 +8,7 @@ import data from './data';
 class App extends Component {
   state = {
     filtered: [],
+    showAnnotations: true,
   }
 
   componentDidMount() {
@@ -19,8 +20,13 @@ class App extends Component {
       const filtered = _.filter(data, d => d.pointsMadeByCurry >= brushRange[0]
                                 && d.pointsMadeByCurry <= brushRange[1]);
       this.setState({ filtered });
+      if (brushRange[0] === 0) {
+        this.setState({ showAnnotations: true });
+      } else {
+        this.setState({ showAnnotations: false });
+      }
     } else {
-      this.setState({ filtered: data });
+      this.setState({ filtered: data, showAnnotations: true });
     }
   };
 

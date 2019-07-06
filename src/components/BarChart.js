@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { AnnotationBracket, AnnotationLabel } from 'react-annotation';
 import * as d3 from 'd3';
 import Axis from './Axis';
 import Bar from './Bar';
@@ -31,6 +32,7 @@ class BarChart extends Component {
       difference: PropTypes.number,
       pointsMadeByCurry: PropTypes.number,
     })),
+    showAnnotations: PropTypes.bool,
   };
 
   state = {
@@ -65,7 +67,7 @@ class BarChart extends Component {
 
   render() {
     const { xScale, yScale, hovered } = this.state;
-    const { filtered } = this.props;
+    const { filtered, showAnnotations } = this.props;
 
     if (!xScale || !yScale) return null;
 
@@ -112,6 +114,46 @@ class BarChart extends Component {
               legendXTransform={width / 2 - 25}
               legendYTransform={height + 50}
             />
+            {showAnnotations ? (
+              <>
+                <AnnotationBracket
+                  x={xScale(13)}
+                  y={height + 20}
+                  note={{
+                    label: 'Curry did not play',
+                    lineType: null,
+                    align: 'middle',
+                    padding: 5,
+                  }}
+                  connector={{ type: 'elbow', end: null }}
+                  subject={{ width: xScale(24) - xScale(13), type: 'square' }}
+                />
+                <AnnotationLabel
+                  x={xScale(72) + xScale.bandwidth() / 2}
+                  y={height + 20}
+                  dy={17}
+                  note={{
+                    label: 'Curry did not play',
+                    lineType: null,
+                    align: 'middle',
+                    padding: 5,
+                    orientation: 'topBottom',
+                  }}
+                />
+                <AnnotationLabel
+                  x={xScale(82) + xScale.bandwidth() / 2}
+                  y={yScale(15) - 3}
+                  dy={-45}
+                  note={{
+                    label: 'Curry did not play',
+                    lineType: null,
+                    align: 'middle',
+                    padding: 7,
+                    orientation: 'topBottom',
+                  }}
+                />
+              </>
+            ) : null}
           </g>
         </svg>
         {hovered ? (
